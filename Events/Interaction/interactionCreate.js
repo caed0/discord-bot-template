@@ -2,6 +2,7 @@ const { Client, CommandInteraction, Colors, EmbedBuilder } = require("discord.js
 
 module.exports = {
     name: "interactionCreate",
+    
     /**
      * @param {CommandInteraction} interaction 
      * @param {Client} client 
@@ -18,9 +19,8 @@ module.exports = {
                 ]
             }) && client.commands.delete(interaction.commandName);
 
-            if (command.permission && !interaction.member.permissions.has(command.permission)) {
+            if (command.permission && !interaction.member.permissions.has(command.permission))
                 return interaction.reply({ content: `You do not have the required permission for this command: \`${interaction.commandName}\`.`, ephemeral: true })
-            }
             
             await command.execute(interaction, client);
         }

@@ -13,12 +13,9 @@ module.exports = async (client, PG) => {
         const command = require(file);
 
         if(!command.name) return;
-    
         if(!command.description) return;
-
         if(command.permission) {
-            if(Perms.includes(command.permission))
-            command.defaultPermission = false
+            if(Perms.includes(command.permission)) command.defaultPermission = false
             else return;
         }
 
@@ -27,7 +24,6 @@ module.exports = async (client, PG) => {
     });
 
     client.on('ready', async () => {
-        for(const [key] of client.guilds.cache)
-            await client.guilds.cache.get(key).commands.set(commandsArray);
+        for(const [key] of client.guilds.cache) await client.guilds.cache.get(key).commands.set(commandsArray);
     });
 }
