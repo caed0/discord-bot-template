@@ -4,8 +4,6 @@
   "author": "caed0",
   "dependencies": {
     "discord.js": "^14.3.0",
-    "dotenv": "^16.3.1",
-    "fs": "^0.0.1-security",
-    "glob": "^8.0.3"
+    "dotenv": "^16.3.1"
   }
 }

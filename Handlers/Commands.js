@@ -1,29 +1,30 @@
-const { Perms } = require("../Validation/Permissions");
+const { Perms } = require("../Validation");
 const { Client } = require("discord.js");
 const path = require("path");
+const fs = require("fs");
 
-/**
- * @param { Client } client 
- */
 
-module.exports = async (client, PG) => {
-    const commandsArray = [];
+module.exports = (client) => {
 
-    (await PG(path.join(__dirname, "..", "Commands/*/*.js").replace(/\\/g,"/"))).map(async (file) => {
-        const command = require(file);
+    /**
+    * @param { Client } client 
+    */
 
-        if(!command.name) return;
-        if(!command.description) return;
+
+    const commandsDir = path.join(__dirname, '..', 'Commands/').replace(/\\/g,"/");
+    const files = fs.readdirSync(commandsDir, { recursive: true }).filter((file) => file.endsWith('.js'));
+
+    files.map(async (file) => {
+        const command = require(path.join(commandsDir, file));
+        if(!command.name || !command.description) return;
         if(command.permission) {
-            if(Perms.includes(command.permission)) command.defaultPermission = false
+            if(Perms.includes(command.permission)) command.defaultPermission = false;
             else return;
         }
 
+        console.log(`Command Loader: ${command.name}.js ...`);
         await client.commands.set(command.name, command);
-        commandsArray.push(command);
     });
 
-    client.on('ready', async () => {
-        for(const [key] of client.guilds.cache) await client.guilds.cache.get(key).commands.set(commandsArray);
-    });
+    console.log(`Command Loader: ${client.commands.size} command(s) loaded!\n`);
 }

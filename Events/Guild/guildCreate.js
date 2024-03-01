@@ -9,6 +9,6 @@ module.exports = {
      */
 
     async execute(client, guild) {
-        await guild.commands.set(client.commandsArray);
+        await guild.commands.set(Array.from(client.commands.values()));
     }
 }

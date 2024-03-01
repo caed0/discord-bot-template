@@ -1,13 +1,13 @@
 require('dotenv').config();
-const { Client, Collection } = require('discord.js');
-const { promisify } = require("util");
-const { glob } = require("glob");
-const PG = promisify(glob);
+const { Client, Collection, Partials,  } = require('discord.js');
 
-const client = new Client({ intents: 131071 });
+const client = new Client({ partials: [], intents: 131071 });
 client.commands = new Collection();
-module.exports = client;
+client.events = new Collection();
 
-["Commands", "Events"].forEach(async (handler) => await require(`./Handlers/${handler}`)(client, PG));
+["Commands", "Events"].forEach(async (handler) => await require(`./Handlers/${handler}`)(client));
 
-client.login(process.env['TOKEN']).then(() => console.log(`Logged in as ${client.user.tag}`));
+client.login(process.env['TOKEN']).then(() => {
+    console.log(`Logged in as ${client.user.tag} (ID: ${client.user.id}).`);
+    console.log(`Online for ${client.guilds.cache.size} server(s) and ${client.users.cache.size} user(s).\n`);
+}); 

@@ -1,26 +1,21 @@
-const { Client, CommandInteraction, Colors, EmbedBuilder } = require("discord.js");
+const { Client, CommandInteraction } = require("discord.js");
 
 module.exports = {
     name: "interactionCreate",
     
     /**
-     * @param {CommandInteraction} interaction 
-     * @param {Client} client 
+     * @param { CommandInteraction } interaction 
+     * @param { Client } client 
      */
     
     async execute(interaction, client) {
         if(interaction.isCommand()) {
             const command = client.commands.get(interaction.commandName);
-            if(!command) return await interaction.reply({
-                embeds: [
-                    new EmbedBuilder()
-                        .setColor(Colors.Purple)
-                        .setDescription("⛔ An error occurred while running this command.")
-                ]
-            }) && client.commands.delete(interaction.commandName);
 
-            if (command.permission && !interaction.member.permissions.has(command.permission))
-                return interaction.reply({ content: `You do not have the required permission for this command: \`${interaction.commandName}\`.`, ephemeral: true })
+            if(!command) 
+                return interaction.reply({ content: '⛔ An error occurred while running this command.', ephemeral: true });
+            if(command.permission && !interaction.member.permissions.has(command.permission))
+                return interaction.reply({ content: 'You do not have the required permission to use this command.', ephemeral: true })
             
             await command.execute(interaction, client);
         }
