@@ -1,15 +1,12 @@
-const { Perms } = require("../Validation");
 const { Client } = require("discord.js");
 const path = require("path");
 const fs = require("fs");
-
 
 module.exports = (client) => {
 
     /**
     * @param { Client } client 
     */
-
 
     const commandsDir = path.join(__dirname, '..', 'Commands/').replace(/\\/g,"/");
     const files = fs.readdirSync(commandsDir, { recursive: true }).filter((file) => file.endsWith('.js'));
@@ -18,7 +15,7 @@ module.exports = (client) => {
         const command = require(path.join(commandsDir, file));
         if(!command.name || !command.description) return;
         if(command.permission) {
-            if(Perms.includes(command.permission)) command.defaultPermission = false;
+            if(client.validation.permissions.includes(command.permission)) command.defaultPermission = false;
             else return;
         }
 

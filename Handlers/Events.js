@@ -1,4 +1,3 @@
-const { Events } = require("../Validation");
 const { Client } = require("discord.js");
 const path = require("path");
 const fs = require("fs");
@@ -14,7 +13,7 @@ module.exports = (client) => {
 
     files.map((file) => {
         const event = require(path.join(eventsDir, file).replace(/\\/g,'/'));
-        if(!Events.includes(event.name) || !event.name) return;
+        if(!client.validation.events.includes(event.name) || !event.name) return;
         if(event.once) client.once(event.name, (...args) => event.execute(...args, client));
         else client.on(event.name, (...args) => event.execute(...args, client));
 

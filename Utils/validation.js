@@ -1,5 +1,5 @@
 module.exports = {
-    Perms: [
+    permissions: [
         "CREATE_INSTANT_INVITE",
         "KICK_MEMBERS",
         "BAN_MEMBERS",
@@ -46,7 +46,7 @@ module.exports = {
         "USE_EXTERNAL_SOUNDS",
         "SEND_VOICE_MESSAGES"
     ],
-    Events: [
+    events: [
         "applicationCommandCreate",
         "applicationCommandDelete",
         "applicationCommandUpdate",
