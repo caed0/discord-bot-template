@@ -4,11 +4,11 @@ module.exports = {
     name: 'guildCreate',
 
     /**
-     * @param { Client } client
-     * @param { Guild } guild
-     */
+    * @param { Guild } guild
+    * @param { Client } client
+    */
 
-    async execute(client, guild) {
+    async execute(guild, client) {
         await guild.commands.set(Array.from(client.commands.values()));
     }
 }

@@ -4,9 +4,9 @@ module.exports = {
     name: "interactionCreate",
     
     /**
-     * @param { CommandInteraction } interaction 
-     * @param { Client } client 
-     */
+    * @param { CommandInteraction } interaction 
+    * @param { Client } client 
+    */
     
     async execute(interaction, client) {
         if(interaction.isCommand()) {
