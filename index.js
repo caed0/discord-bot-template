@@ -1,8 +1,12 @@
 require('dotenv').config();
-const { Client, Collection, } = require('discord.js');
-const validation = require('./utils/Validation');
 
-const client = new Client({ partials: [], intents: 131071 });
+const fs = require('fs');
+const path = require('path');
+
+const { Client, Collection, } = require('discord.js');
+const validation = require('./Utils/validation')();
+
+const client = new Client({ intents: 131071 });
 client.commands = new Collection();
 client.events = new Collection();
 client.validation = validation;
